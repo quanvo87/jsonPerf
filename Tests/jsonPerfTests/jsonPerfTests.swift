@@ -6,13 +6,9 @@
 
     class jsonPerfTests: XCTestCase {
         func testDecoder() throws {
-            // Test correctness
-            let user = try JSONDecoder().decode(User.self, from: self.sampleUserData)
-            XCTAssertEqual(user, self.sampleUser)
-
-            // Test performance
+            // average: 0.038, relative standard deviation: 9.147%
             self.measure {
-                for _ in 0..<1000 {
+                for _ in 0..<self.testRuns {
                     // `decode()` decodes the data AND creates a `User` struct
                     _ = try! JSONDecoder().decode(User.self, from: self.sampleUserData)
                 }
@@ -20,17 +16,9 @@
         }
 
         func testSwiftyJSON() {
-            // Test correctness
-            let json = JSON(data: self.sampleUserData)
-            guard let user = User(json) else {
-                XCTFail()
-                return
-            }
-            XCTAssertEqual(user, self.sampleUser)
-
-            // Test performance
+            // average: 0.084, relative standard deviation: 6.741%
             self.measure {
-                for _ in 0..<1000 {
+                for _ in 0..<self.testRuns {
                     // Decode the data
                     let json = JSON(data: self.sampleUserData)
 
@@ -39,6 +27,19 @@
                 }
             }
         }
+
+        func testDecoderCorrectness() throws {
+            let user = try JSONDecoder().decode(User.self, from: self.sampleUserData)
+            XCTAssertEqual(user, self.sampleUser)
+        }
+
+        func testSwiftyJSONCorrectness() {
+            let json = JSON(data: self.sampleUserData)
+            let user = User(json)
+            XCTAssertEqual(user, self.sampleUser)
+        }
+
+        let testRuns = 1000
 
         let sampleUserData: Data = {
             let path = #file
