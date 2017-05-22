@@ -29,14 +29,14 @@
         }
 
         func testDecoderCorrectness() throws {
-            let user = try JSONDecoder().decode(User.self, from: self.sampleUserData)
-            XCTAssertEqual(user, self.sampleUser)
+            let user = try JSONDecoder().decode(User.self, from: sampleUserData)
+            XCTAssertEqual(user, sampleUser)
         }
 
         func testSwiftyJSONCorrectness() {
-            let json = JSON(data: self.sampleUserData)
+            let json = JSON(data: sampleUserData)
             let user = User(json)
-            XCTAssertEqual(user, self.sampleUser)
+            XCTAssertEqual(user, sampleUser)
         }
 
         let testRuns = 1000
