@@ -5,40 +5,6 @@
     import SwiftyJSON
 
     class jsonPerfTests: XCTestCase {
-        func testDecoder() throws {
-            // average: 0.038, relative standard deviation: 9.147%
-            self.measure {
-                for _ in 0..<self.testRuns {
-                    // `decode()` decodes the data AND creates a `User` struct
-                    _ = try! JSONDecoder().decode(User.self, from: self.sampleUserData)
-                }
-            }
-        }
-
-        func testSwiftyJSON() {
-            // average: 0.084, relative standard deviation: 6.741%
-            self.measure {
-                for _ in 0..<self.testRuns {
-                    // Decode the data
-                    let json = JSON(data: self.sampleUserData)
-
-                    // Create `User` struct from decoded data
-                    _ = User(json)
-                }
-            }
-        }
-
-        func testDecoderCorrectness() throws {
-            let user = try JSONDecoder().decode(User.self, from: sampleUserData)
-            XCTAssertEqual(user, sampleUser)
-        }
-
-        func testSwiftyJSONCorrectness() {
-            let json = JSON(data: sampleUserData)
-            let user = User(json)
-            XCTAssertEqual(user, sampleUser)
-        }
-
         let testRuns = 1000
 
         let sampleUserData: Data = {
@@ -61,5 +27,43 @@
                                                street: "Mushroom St",
                                                type: .apartment),
                               registered: true)
+    }
+
+    extension jsonPerfTests {
+        func testDecoder() {
+            // average: 0.038, relative standard deviation: 9.147%
+            self.measure {
+                for _ in 0..<self.testRuns {
+                    // `decode()` decodes the data AND creates a `User` struct
+                    _ = try! JSONDecoder().decode(User.self, from: self.sampleUserData)
+                }
+            }
+        }
+
+        func testSwiftyJSON() {
+            // average: 0.084, relative standard deviation: 6.741%
+            self.measure {
+                for _ in 0..<self.testRuns {
+                    // Decode the data
+                    let json = JSON(data: self.sampleUserData)
+
+                    // Create `User` struct from decoded data
+                    _ = User(json)
+                }
+            }
+        }
+    }
+
+    extension jsonPerfTests {
+        func testDecoderCorrectness() throws {
+            let user = try JSONDecoder().decode(User.self, from: sampleUserData)
+            XCTAssertEqual(user, sampleUser)
+        }
+
+        func testSwiftyJSONCorrectness() {
+            let json = JSON(data: sampleUserData)
+            let user = User(json)
+            XCTAssertEqual(user, sampleUser)
+        }
     }
 #endif
