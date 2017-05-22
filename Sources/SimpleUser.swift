@@ -28,6 +28,6 @@ extension SimpleUser {
 // MARK: - Equatable
 extension SimpleUser: Equatable {
     static func ==(lhs: SimpleUser, rhs: SimpleUser) -> Bool {
-        return  lhs.id == rhs.id
+        return lhs.id == rhs.id
     }
 }

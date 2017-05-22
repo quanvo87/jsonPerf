@@ -122,7 +122,9 @@ extension ComplexUser {
                 tempDiet.append(tempFood)
             }
 
-            let tempAnimal = Animal(name: name, species: speciesType, diet: tempDiet)
+            let tempAnimal = Animal(name: name,
+                                    species: speciesType,
+                                    diet: tempDiet)
             tempPets.append(tempAnimal)
         }
 
@@ -138,9 +140,9 @@ extension ComplexUser {
 extension ComplexUser: Equatable {
     static func ==(lhs: ComplexUser, rhs: ComplexUser) -> Bool {
         return  lhs.id          == rhs.id &&
-            lhs.name        == rhs.name &&
-            lhs.addresses   == rhs.addresses &&
-            lhs.registered  == rhs.registered &&
-            lhs.pets        == rhs.pets
+                lhs.name        == rhs.name &&
+                lhs.addresses   == rhs.addresses &&
+                lhs.registered  == rhs.registered &&
+                lhs.pets        == rhs.pets
     }
 }
