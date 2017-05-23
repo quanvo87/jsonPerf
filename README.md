@@ -11,9 +11,9 @@
 
 ## Summary
 * For simple JSON files, the three have similar performance.
-* For "medium" JSON files, `SwiftyJSON` is about twice as slow as the others, with `JSONSerialization` being the fastest.
-* For "complex" JSON files, the gap between `JSONDecoder` and `SwiftyJSON` is not as large, while the gap between `JSONDecoder` and `JSONSerialization` grows greatly.
-* A large advantage of using `JSONDecoder` is not having to write initializers for your objects. These initializers grow in complexity with your object and can be time consuming and error prone to write.
+* For "medium" JSON files, `SwiftyJSON` is more than twice as slow than the others, with `JSONSerialization` being the fastest.
+* For "complex" JSON files, `JSONDecoder` is not quite twice as fast as `SwiftyJSON` anymore, and also begins to lag behind `JSONSerialization` much more.
+* A large advantage of using `JSONDecoder` is not having to write JSON initializers for your objects. These initializers grow in complexity with your object and can be time consuming and error prone to write.
 
 ## The JSON Files
 
