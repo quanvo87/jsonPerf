@@ -2,9 +2,9 @@ import SwiftyJSON
 
 extension Large {
     init(json: JSON) {
-        let programsArr = json["ProgramList"]["Programs"].array
+        let programs = json["ProgramList"]["Programs"].array
         var newPrograms = [Program]()
-        programsArr?.forEach { newPrograms.append(Program(json: $0)) }
+        programs?.forEach { newPrograms.append(Program(json: $0)) }
         programList = ProgramList(programs: newPrograms)
     }
 }
@@ -15,8 +15,8 @@ extension Program {
         chanId = json["Channel"]["ChanId"].stringValue
         description = json["Description"].string
         subtitle = json["SubTitle"].string
-        season = json["Season"].int
-        episode = json["Episode"].int
+        season = Int(json["Season"].string ?? "")
+        episode = Int(json["Episode"].string ?? "")
         recording = Recording(json: json["Recording"])
     }
 }
