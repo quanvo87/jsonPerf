@@ -4,8 +4,10 @@ import Foundation
 import SwiftyJSON
 
 class ComplexUserTests: XCTestCase {
-    // 0.418 sec
-    func testDecoder() throws {
+    // MARK: - JSONDecoder
+
+    // 0.392 sec
+    func testDecoder() {
         self.measure {
             for _ in 0..<testRuns {
                 // `decode()` decodes the data AND creates a `User` struct
@@ -15,28 +17,66 @@ class ComplexUserTests: XCTestCase {
         }
     }
 
-    // 0.260 sec
-    func testJSONDeserialization() {
+    // MARK: - JSONSerialization
+
+    // 0.027 sec
+    func testJSONSerializationDecode() {
         self.measure {
             for _ in 0..<testRuns {
-                // Decode the data
-                let json = try? JSONSerialization.jsonObject(with: sampleComplexUserData, options: []) as? [String: Any]
+                _ = try? JSONSerialization.jsonObject(with: sampleComplexUserData, options: []) as? [String: Any]
+            }
+        }
+    }
 
-                // Create `User` struct from decoded data
+    // 0.185 sec
+    func testJSONSerializationCreateStruct() {
+        let json = try? JSONSerialization.jsonObject(with: sampleComplexUserData, options: []) as? [String: Any]
+
+        self.measure {
+            for _ in 0..<testRuns {
+                _ = ComplexUser(json)
+            }
+        }
+    }
+
+    // 0.242 sec
+    func testJSONSerializationBoth() {
+        self.measure {
+            for _ in 0..<testRuns {
+                let json = try? JSONSerialization.jsonObject(with: sampleComplexUserData, options: []) as? [String: Any]
                 let user = ComplexUser(json)
                 XCTAssertEqual(user, sampleComplexUser)
             }
         }
     }
 
-    // 0.595 sec
-    func testSwiftyJSON() {
+    // MARK: - SwiftyJSON
+
+    // 0.029 sec
+    func testSwiftyJSONDecode() {
         self.measure {
             for _ in 0..<testRuns {
-                // Decode the data
-                let json = JSON(data: sampleComplexUserData)
+                _ = JSON(data: sampleComplexUserData)
+            }
+        }
+    }
 
-                // Create `User` struct from decoded data
+    // 0.512 sec
+    func testSwiftyJSONCreateStruct() {
+        let json = JSON(data: sampleComplexUserData)
+
+        self.measure {
+            for _ in 0..<testRuns {
+                _ = ComplexUser(json)
+            }
+        }
+    }
+
+    // 0.577 sec
+    func testSwiftyJSONBoth() {
+        self.measure {
+            for _ in 0..<testRuns {
+                let json = JSON(data: sampleComplexUserData)
                 let user = ComplexUser(json)
                 XCTAssertEqual(user, sampleComplexUser)
             }

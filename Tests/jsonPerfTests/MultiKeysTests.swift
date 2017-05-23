@@ -2,6 +2,10 @@ import XCTest
 import Foundation
 @testable import jsonPerf
 
+/*
+ Not a performance test but showing how to map multiple potential keys into a single struct property.
+ */
+
 class MultiKeysTests: XCTestCase {
     func testid() throws {
         let example = try JSONDecoder().decode(MultiKeys.self, from: id)

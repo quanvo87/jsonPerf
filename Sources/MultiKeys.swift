@@ -23,7 +23,7 @@ struct MultiKeys: Decodable, Equatable {
                 continue
             }
         }
-        throw CocoaError(.coderInvalidValue)
+        throw CocoaError(.coderInvalidValue)    // Might not be correct error to throw
     }
 
     static func ==(lhs: MultiKeys, rhs: MultiKeys) -> Bool {

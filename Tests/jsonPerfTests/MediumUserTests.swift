@@ -4,7 +4,9 @@ import Foundation
 import SwiftyJSON
 
 class MediumUserTests: XCTestCase {
-    // 0.044 sec
+    // MARK: - JSONDecoder
+
+    // 0.042 sec
     func testDecoder() {
         self.measure {
             for _ in 0..<testRuns {
@@ -15,28 +17,66 @@ class MediumUserTests: XCTestCase {
         }
     }
 
-    // 0.034 sec
-    func testJSONDeserialization() {
+    // MARK: - JSONSerialization
+
+    // 0.015 sec
+    func testJSONSerializationDecode() {
         self.measure {
             for _ in 0..<testRuns {
-                // Decode the data
-                let json = try? JSONSerialization.jsonObject(with: sampleMediumUserData, options: []) as? [String: Any]
+                _ = try? JSONSerialization.jsonObject(with: sampleMediumUserData, options: []) as? [String: Any]
+            }
+        }
+    }
 
-                // Create `User` struct from decoded data
+    // 0.013 sec
+    func testJSONSerializationCreateStruct() {
+        let json = try? JSONSerialization.jsonObject(with: sampleMediumUserData, options: []) as? [String: Any]
+
+        self.measure {
+            for _ in 0..<testRuns {
+                _ = MediumUser(json)
+            }
+        }
+    }
+
+    // 0.033 sec
+    func testJSONSerializationBoth() {
+        self.measure {
+            for _ in 0..<testRuns {
+                let json = try? JSONSerialization.jsonObject(with: sampleMediumUserData, options: []) as? [String: Any]
                 let user = MediumUser(json)
                 XCTAssertEqual(user, sampleMediumUser)
             }
         }
     }
 
-    // 0.095 sec
-    func testSwiftyJSON() {
+    // MARK: - SwiftyJSON
+
+    // 0.016 sec
+    func testSwiftyJSONDecode() {
         self.measure {
             for _ in 0..<testRuns {
-                // Decode the data
-                let json = JSON(data: sampleMediumUserData)
+                _ = JSON(data: sampleMediumUserData)
+            }
+        }
+    }
 
-                // Create `User` struct from decoded data
+    // 0.068 sec
+    func testSwiftyJSONCreateStruct() {
+        let json = JSON(data: sampleMediumUserData)
+
+        self.measure {
+            for _ in 0..<testRuns {
+                _ = MediumUser(json)
+            }
+        }
+    }
+
+    // 0.097 sec
+    func testSwiftyJSONBoth() {
+        self.measure {
+            for _ in 0..<testRuns {
+                let json = JSON(data: sampleMediumUserData)
                 let user = MediumUser(json)
                 XCTAssertEqual(user, sampleMediumUser)
             }

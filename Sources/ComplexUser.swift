@@ -56,11 +56,11 @@ extension ComplexUser {
                 }
                 tempDiet.append(tempFood)
             }
-            
-            let tempAnimal = Animal(name: name,
-                                    species: speciesType,
-                                    diet: tempDiet)
-            tempPets.append(tempAnimal)
+
+            let tempPet = Animal(name: name,
+                                 species: speciesType,
+                                 diet: tempDiet)
+            tempPets.append(tempPet)
         }
 
         self.id = id
@@ -101,12 +101,12 @@ extension ComplexUser {
         }
 
         var tempPets = [Animal]()
-        for animal in pets {
+        for pet in pets {
             guard
-                let name = animal["name"].string,
-                let species = animal["species"].string,
+                let name = pet["name"].string,
+                let species = pet["species"].string,
                 let speciesType = AnimalSpecies(rawValue: species),
-                let diet = animal["diet"].array
+                let diet = pet["diet"].array
                 else {
                     return nil
             }
@@ -122,10 +122,10 @@ extension ComplexUser {
                 tempDiet.append(tempFood)
             }
 
-            let tempAnimal = Animal(name: name,
-                                    species: speciesType,
-                                    diet: tempDiet)
-            tempPets.append(tempAnimal)
+            let tempPet = Animal(name: name,
+                                 species: speciesType,
+                                 diet: tempDiet)
+            tempPets.append(tempPet)
         }
 
         self.id = id
