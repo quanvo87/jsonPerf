@@ -106,3 +106,17 @@ let sampleComplexUser = ComplexUser(id: "87B65886-CCE5-498E-8110-9ED8018621CE",
                                                   species: .dog,
                                                   diet: [.steak, .fish])])
 
+// Large
+let largeData: Data = {
+    let path = #file
+        .characters
+        .split(separator: "/", omittingEmptySubsequences: false)
+        .dropLast(1)
+        .map { String($0) }
+        .joined(separator: "/") + "/large.json"
+    let file = FileHandle(forReadingAtPath: path)!
+    let data = file.readDataToEndOfFile()
+    file.closeFile()
+
+    return data
+}()
