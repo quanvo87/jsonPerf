@@ -22,7 +22,7 @@ extension ComplexUser {
                 return nil
         }
 
-        var tempAddresses = [Address]()
+        var newAddresses = [Address]()
         for address in addresses {
             guard
                 let number = address["number"] as? Int,
@@ -32,13 +32,13 @@ extension ComplexUser {
                 else {
                     return nil
             }
-            let tempAddress = Address(number: number,
+            let newAddress = Address(number: number,
                                       street: street,
                                       type: addressType)
-            tempAddresses.append(tempAddress)
+            newAddresses.append(newAddress)
         }
 
-        var tempPets = [Animal]()
+        var newPets = [Animal]()
         for pet in pets {
             guard
                 let name = pet["name"] as? String,
@@ -49,25 +49,25 @@ extension ComplexUser {
                     return nil
             }
 
-            var tempDiet = [Food]()
+            var newDiet = [Food]()
             for food in diet {
-                guard let tempFood = Food(rawValue: food) else {
+                guard let newFood = Food(rawValue: food) else {
                     return nil
                 }
-                tempDiet.append(tempFood)
+                newDiet.append(newFood)
             }
 
-            let tempPet = Animal(name: name,
+            let newPet = Animal(name: name,
                                  species: speciesType,
-                                 diet: tempDiet)
-            tempPets.append(tempPet)
+                                 diet: newDiet)
+            newPets.append(newPet)
         }
 
         self.id = id
         self.name = name
-        self.addresses = tempAddresses
+        self.addresses = newAddresses
         self.registered = registered
-        self.pets = tempPets
+        self.pets = newPets
     }
 }
 
@@ -84,7 +84,7 @@ extension ComplexUser {
                 return nil
         }
 
-        var tempAddresses = [Address]()
+        var newAddresses = [Address]()
         for address in addresses {
             guard
                 let number = address["number"].int,
@@ -94,13 +94,13 @@ extension ComplexUser {
                 else {
                     return nil
             }
-            let tempAddress = Address(number: number,
+            let newAddress = Address(number: number,
                                       street: street,
                                       type: addressType)
-            tempAddresses.append(tempAddress)
+            newAddresses.append(newAddress)
         }
 
-        var tempPets = [Animal]()
+        var newPets = [Animal]()
         for pet in pets {
             guard
                 let name = pet["name"].string,
@@ -111,28 +111,28 @@ extension ComplexUser {
                     return nil
             }
 
-            var tempDiet = [Food]()
+            var newDiet = [Food]()
             for food in diet {
                 guard
                     let foodString = food.string,
-                    let tempFood = Food(rawValue: foodString)
+                    let newFood = Food(rawValue: foodString)
                     else {
                         return nil
                 }
-                tempDiet.append(tempFood)
+                newDiet.append(newFood)
             }
 
-            let tempPet = Animal(name: name,
+            let newPet = Animal(name: name,
                                  species: speciesType,
-                                 diet: tempDiet)
-            tempPets.append(tempPet)
+                                 diet: newDiet)
+            newPets.append(newPet)
         }
 
         self.id = id
         self.name = name
-        self.addresses = tempAddresses
+        self.addresses = newAddresses
         self.registered = registered
-        self.pets = tempPets
+        self.pets = newPets
     }
 }
 

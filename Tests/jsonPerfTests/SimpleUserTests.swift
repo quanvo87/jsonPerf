@@ -23,7 +23,7 @@ class SimpleUserTests: XCTestCase {
     func testJSONSerializationDecode() {
         self.measure {
             for _ in 0..<testRuns {
-                _ = try? JSONSerialization.jsonObject(with: sampleSimpleUserData, options: []) as? [String: Any]
+                _ = try? JSONSerialization.jsonObject(with: sampleSimpleUserData, options: [])
             }
         }
     }
