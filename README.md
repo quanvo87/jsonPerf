@@ -31,4 +31,4 @@ Disadvantages:
 - Not as fast as `JSONSerialization` or other decoders out there (though can be easier to use).
 
 ## Credits
-Most borrowed ideas from [JSONShootout](https://github.com/bwhiteley/JSONShootout). Also using their large JSON file.
+Borrowed most ideas from [JSONShootout](https://github.com/bwhiteley/JSONShootout). Also using their large JSON file.
