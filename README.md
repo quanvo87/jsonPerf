@@ -12,7 +12,7 @@ Performance comparison of `JSONDecoder`, `JSONSerializaton`, and `SwiftyJSON`.
 * For `JSONSerialization` and `SwiftyJSON`, separate calls were made to decode the data, then create a struct from it.
 * The object mapping for `SwiftyJSON` and `JSONSerialization` happens in initializers written by the user. View mine in `/Sources`.
 * Under the covers, `SwiftyJSON` uses `JSONSerialization` to decode {citation needed}.
-* There are additional tests for different JSON files of varying lengths and complexity in `/Tests`. Performance is noted in the test files, or clone and try them yourself.
+* There are additional tests for a `SimpleUser`, `MediumUser`, and `ComplexUser` in `/Tests`. Performance is noted in the test files, or clone and try them yourself.
 * `JSONDecoder` has a few methods and configuration options. The only one used here is `decode()`.
 
 ## Takeaways
