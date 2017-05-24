@@ -7,7 +7,7 @@ Performance comparison of `JSONDecoder`, `JSONSerializaton`, and `SwiftyJSON`.
 
 ![perf graph](https://github.com/quanvo87/jsonPerf/blob/master/Assets/chart.png)
 
-## Notes:
+## Notes
 * `JSONDecoder` decodes and returns a struct in one go, so you only see one bar for it.
 * For `JSONSerialization` and `SwiftyJSON`, separate calls were made to decode the data, then create a struct from it.
 * The object mapping for `SwiftyJSON` and `JSONSerialization` happens in initializers written by the user. View mine in `/Sources`.
@@ -24,7 +24,7 @@ Advantages:
 
 Disadvantages:
 - The object you're decoding to must conform to `Decodable`.
-- Your object's property names must be somewhere in the JSON. If spelling, capitalization, etc. is different, or they might be missing, then you must implement your own `Decodable` conformance methods, else trying to decode will simply throw an error.
+- Not as fast as `JSONSerialization` or other decoders out there (though can be easier to use).
 
 ## Credits
 Most borrowed ideas from [JSONShootout](https://github.com/bwhiteley/JSONShootout). Also using their large JSON file.
