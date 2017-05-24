@@ -1,5 +1,3 @@
-// https://github.com/bwhiteley/JSONShootout
-
 import Foundation
 
 // MARK: - Large
