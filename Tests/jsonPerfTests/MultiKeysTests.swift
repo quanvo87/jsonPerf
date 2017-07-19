@@ -7,6 +7,12 @@ import Foundation
  */
 
 class MultiKeysTests: XCTestCase {
+    static var allTests = [
+        ("testid", testid),
+        ("testID", testID),
+        ("testidentification", testidentification)
+    ]
+
     func testid() throws {
         let example = try JSONDecoder().decode(MultiKeys.self, from: id)
         XCTAssertEqual(example, correctExample)
