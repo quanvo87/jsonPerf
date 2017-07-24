@@ -1,17 +1,34 @@
 import XCTest
 import Foundation
 @testable import jsonPerf
-import SwiftyJSON
 
 class LargeTests: XCTestCase {
-    // MARK: - JSONDecoder
+    static var allTests = [
+        ("testDecoder", testDecoder),
+        ("testJSONSerializationDecode", testJSONSerializationDecode),
+        ("testJSONSerializationCreateStruct", testJSONSerializationCreateStruct),
+        ("testJSONSerializationBoth", testJSONSerializationBoth),
+        ("testDecoderCorrectness", testDecoderCorrectness),
+        ("testJSONSerializationCorrectness", testJSONSerializationCorrectness)
+    ]
+}
+
+// MARK: - JSONDecoder
+extension LargeTests {
     func testDecoder() {
         self.measure {
             _ = try? JSONDecoder().decode(Large.self, from: largeData)
         }
     }   // .994s
 
-    // MARK: - JSONSerialization
+    func testDecoderCorrectness() {
+        let large = try? JSONDecoder().decode(Large.self, from: largeData)
+        XCTAssert(large?.programList.programs.count ?? 0 == 4710)
+    }
+}
+
+// MARK: - JSONSerialization
+extension LargeTests {
     func testJSONSerializationDecode() {
         self.measure {
             _ = try? JSONSerialization.jsonObject(with: largeData, options: [])
@@ -32,43 +49,17 @@ class LargeTests: XCTestCase {
         }
     }   // .825s
 
-    // MARK: - SwiftyJSON
-    func testSwiftyJSONSerialization() {
-        self.measure {
-            _ = JSON(data: largeData)
-        }
-    }   // .093s
-
-    func testSwiftyJSONCreateStruct() {
-        let json = JSON(data: largeData)
-        self.measure {
-            _ = Large(json: json)
-        }
-    }   // 1.020s
-
-    func testSwiftyJSONBoth() {
-        self.measure {
-            let json = JSON(data: largeData)
-            _ = Large(json: json)
-        }
-    }   // 1.087s
-}
-
-extension LargeTests {
-    func testDecoderCorrectness() {
-        let large = try? JSONDecoder().decode(Large.self, from: largeData)
-        XCTAssert(large?.programList.programs.count ?? 0 == 4710)
-    }
-
     func testJSONSerializationCorrectness() {
         let dict = try? JSONSerialization.jsonObject(with: largeData, options: []) as? [String: Any]
         let large = Large(dict)
         XCTAssert(large?.programList.programs.count ?? 0 == 4710)
     }
-
-    func testSwiftyJSONCorrectness() {
-        let json = JSON(data: largeData)
-        let large = Large(json: json)
-        XCTAssert(large.programList.programs.count == 4710)
-    }
 }
+
+let largeData: Data = {
+    let path = URL(fileURLWithPath: #file).appendingPathComponent("../large.json").standardized.path
+    let file = FileHandle(forReadingAtPath: path)!
+    let data = file.readDataToEndOfFile()
+    file.closeFile()
+    return data
+}()
