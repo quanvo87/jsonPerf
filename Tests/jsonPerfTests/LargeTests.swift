@@ -11,18 +11,20 @@ class LargeTests: XCTestCase {
         ("testDecoderCorrectness", testDecoderCorrectness),
         ("testJSONSerializationCorrectness", testJSONSerializationCorrectness)
     ]
+
+    let decoder = JSONDecoder()
 }
 
 // MARK: - JSONDecoder
 extension LargeTests {
     func testDecoder() {
         self.measure {
-            _ = try? JSONDecoder().decode(Large.self, from: largeData)
+            _ = try? self.decoder.decode(Large.self, from: largeData)
         }
     }   // .994s
 
     func testDecoderCorrectness() {
-        let large = try? JSONDecoder().decode(Large.self, from: largeData)
+        let large = try? decoder.decode(Large.self, from: largeData)
         XCTAssert(large?.programList.programs.count ?? 0 == 4710)
     }
 }
