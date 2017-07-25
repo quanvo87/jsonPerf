@@ -4,11 +4,11 @@ Performance comparison of `JSONDecoder` and `JSONSerializaton` decoding and retu
 - [swift-evolution/0166](https://github.com/apple/swift-evolution/blob/master/proposals/0166-swift-archival-serialization.md)
 - [swift-evolution/0167](https://github.com/apple/swift-evolution/blob/master/proposals/0167-swift-encoders.md)
 
-![macOS](https://github.com/quanvo87/jsonPerf/blob/master/Assets/macOS.png)
+![macOS](https://github.com/quanvo87/jsonPerf/blob/master/Assets/macOS.png?)
 
 macOS: `JSONEncoder` was 10.95% *slower* than `JSONSerialization` + object mapping.
 
-![Linux](https://github.com/quanvo87/jsonPerf/blob/master/Assets/Linux.png)
+![Linux](https://github.com/quanvo87/jsonPerf/blob/master/Assets/Linux.png?)
 
 Linux: `JSONEncoder` was 0.28% *faster* than `JSONSerialization` + object mapping.
 
